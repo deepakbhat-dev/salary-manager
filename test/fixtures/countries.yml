@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  country_code: MyString
+  currency_symbol: MyString
+  currency_code: MyString
+  tax_configuration: 
+
+two:
+  name: MyString
+  country_code: MyString
+  currency_symbol: MyString
+  currency_code: MyString
+  tax_configuration: 

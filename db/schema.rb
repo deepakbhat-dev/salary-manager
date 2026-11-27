@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_26_122105) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_27_072614) do
+  create_table "countries", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "country_code", null: false
+    t.string "currency_symbol"
+    t.string "currency_code", null: false
+    t.json "tax_configuration", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_code"], name: "index_countries_on_country_code", unique: true
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_organizations_on_code", unique: true
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
@@ -25,8 +44,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_26_122105) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.string "role", default: "employee", null: false
+    t.string "name"
+    t.integer "organization_id", null: false
+    t.index ["organization_id", "email_address"], name: "index_users_on_organization_id_and_email_address", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
   end
 
   add_foreign_key "sessions", "users"
+  add_foreign_key "users", "organizations"
 end
